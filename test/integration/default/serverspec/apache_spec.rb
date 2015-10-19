@@ -15,4 +15,12 @@ describe 'apache::server' do
   describe file('/var/www/html/index.html') do
     its(:content) { should match /Hello, world!/ }
   end
+
+  describe port(80) do
+    it { should be_listening.with('tcp') }
+  end
+
+  describe command('curl localhost') do
+    its(:stdout) { should match /Hello, world!/ }
+  end
 end
