@@ -13,7 +13,8 @@ describe 'apache::server' do
   end
 
   describe file('/var/www/html/index.html') do
-    its(:content) { should match /Hello, world!/ }
+    its(:content) { should match(/Hello, world!/) }
+    its(:content) { should match(/#{host_inventory['hostname']}/) }
   end
 
   describe port(80) do
@@ -21,6 +22,6 @@ describe 'apache::server' do
   end
 
   describe command('curl localhost') do
-    its(:stdout) { should match /Hello, world!/ }
+    its(:stdout) { should match(/Hello, world!/) }
   end
 end
